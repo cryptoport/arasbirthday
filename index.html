@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    overflow:hidden;
+    background:linear-gradient(
+        135deg,
+        #ffd6ec,
+        #d6f0ff,
+        #fff6bf
+    );
+    position:relative;
+}
+
+/* HEARTS */
+
+#hearts{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.heart{
+    position:absolute;
+    bottom:-50px;
+    color:#ff4d88;
+    animation:floatUp linear forwards;
+    user-select:none;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0) rotate(0deg);
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-120vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* CONTENT */
+
+.container{
+    z-index:10;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+/* FLOWER */
+
+.flower{
+    position:relative;
+    width:160px;
+    height:160px;
+    animation:flowerFloat 3s ease-in-out infinite;
+}
+
+@keyframes flowerFloat{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.petal{
+    position:absolute;
+    width:80px;
+    height:80px;
+    background:#ff8fc7;
+    border-radius:50%;
+    animation:blink 1.5s infinite;
+    box-shadow:0 0 20px rgba(255,105,180,.4);
+}
+
+.petal:nth-child(1){
+    top:0;
+    left:40px;
+}
+
+.petal:nth-child(2){
+    bottom:0;
+    left:40px;
+}
+
+.petal:nth-child(3){
+    left:0;
+    top:40px;
+}
+
+.petal:nth-child(4){
+    right:0;
+    top:40px;
+}
+
+.petal:nth-child(5){
+    top:20px;
+    left:20px;
+}
+
+.petal:nth-child(6){
+    top:20px;
+    right:20px;
+}
+
+.petal:nth-child(7){
+    bottom:20px;
+    left:20px;
+}
+
+.petal:nth-child(8){
+    bottom:20px;
+    right:20px;
+}
+
+.center{
+    position:absolute;
+    width:60px;
+    height:60px;
+    background:#ffd93d;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 30px rgba(255,215,0,.8);
+}
+
+@keyframes blink{
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+    50%{
+        opacity:.5;
+        transform:scale(1.08);
+    }
+}
+
+/* TEXT */
+
+.title{
+    margin-top:40px;
+    font-size:clamp(2rem,8vw,4rem);
+    color:#ff5ca8;
+    font-weight:700;
+}
+
+.subtitle{
+    margin-top:10px;
+    color:#555;
+    font-size:clamp(1rem,3vw,1.3rem);
+    max-width:600px;
+}
+
+/* BUTTON */
+
+.enter-btn{
+    margin-top:40px;
+    text-decoration:none;
+    background:#ff1493;
+    color:white;
+    padding:15px 40px;
+    border-radius:999px;
+    font-size:1.1rem;
+    font-weight:600;
+    opacity:0;
+    visibility:hidden;
+    transition:.4s;
+    box-shadow:0 10px 25px rgba(255,20,147,.35);
+}
+
+.enter-btn.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.enter-btn:hover{
+    transform:translateY(-4px);
+}
+
+.countdown{
+    margin-top:25px;
+    color:#888;
+    font-size:1rem;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .flower{
+        width:130px;
+        height:130px;
+    }
+
+    .petal{
+        width:65px;
+        height:65px;
+    }
+
+    .center{
+        width:50px;
+        height:50px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+
+<div class="container">
+
+    <div class="flower">
+
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+
+        <div class="center"></div>
+
+    </div>
+
+    <h1 class="title">
+        Happy Birthday Sayaangg
+    </h1>
+
+    <p class="subtitle">
+        i made something special just for u
+    </p>
+
+    <div class="countdown" id="countdown">
+        Tunggu 5 detik duluu
+    </div>
+
+    <a href="main.html" id="enterBtn" class="enter-btn">
+        Pencet ini bubbiee
+    </a>
+
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* HEARTS */
+
+const heartsContainer = document.getElementById('hearts');
+
+function createHeart(){
+
+    const heart = document.createElement('div');
+
+    heart.classList.add('heart');
+
+    heart.innerHTML = '❤';
+
+    heart.style.left =
+        Math.random() * window.innerWidth + 'px';
+
+    heart.style.fontSize =
+        (12 + Math.random() * 28) + 'px';
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + 's';
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },10000);
+}
+
+setInterval(createHeart,250);
+
+/* COUNTDOWN */
+
+const countdown = document.getElementById('countdown');
+const enterBtn = document.getElementById('enterBtn');
+
+let time = 5;
+
+const timer = setInterval(()=>{
+
+    time--;
+
+    if(time > 0){
+
+        countdown.innerText =
+        `Tunggu ${time} detik duluu`;
+
+    }else{
+
+        clearInterval(timer);
+
+        countdown.innerText =
+        "";
+
+        enterBtn.classList.add('show');
+    }
+
+},1000);
+
+/* MUSIC */
+
+enterBtn.addEventListener('click',(e)=>{
+
+    e.preventDefault();
+
+    const music =
+    document.getElementById('bgMusic');
+
+    music.play();
+
+    sessionStorage.setItem(
+        'birthdayMusic',
+        'play'
+    );
+
+    setTimeout(()=>{
+        window.location.href='main.html';
+    },300);
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday ❤️</title>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CONFETTI -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "DM Sans", sans-serif;
+
+            color: #343443;
+
+            overflow-x: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffdff0 0%,
+                    #e9e4ff 48%,
+                    #dff5ff 100%
+                );
+
+            position: relative;
+        }
+
+
+        /* =========================================
+           BACKGROUND GLOW
+        ========================================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 500px;
+            height: 500px;
+
+            top: -200px;
+            left: -200px;
+
+            background: rgba(255, 170, 210, .25);
+
+            filter: blur(80px);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: -3;
+        }
+
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 500px;
+            height: 500px;
+
+            bottom: -250px;
+            right: -200px;
+
+            background: rgba(150, 220, 255, .25);
+
+            filter: blur(80px);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: -3;
+        }
+
+
+        /* =========================================
+           HEART BACKGROUND
+        ========================================= */
+
+        #hearts {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            overflow: hidden;
+
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+
+            bottom: -60px;
+
+            font-size: 20px;
+
+            opacity: .45;
+
+            animation: floatUp linear forwards;
+
+            filter: blur(.1px);
+        }
+
+        @keyframes floatUp {
+
+            0% {
+                transform:
+                    translateY(0)
+                    rotate(0deg)
+                    scale(1);
+
+                opacity: 0;
+            }
+
+            10% {
+                opacity: .45;
+            }
+
+            90% {
+                opacity: .35;
+            }
+
+            100% {
+                transform:
+                    translateY(-120vh)
+                    rotate(360deg)
+                    scale(1.2);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================================
+           MUSIC BUTTON
+        ========================================= */
+
+        .music-button {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            z-index: 100;
+
+            border: none;
+
+            background: rgba(255, 255, 255, .65);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            color: #d94b88;
+
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, .1);
+
+            transition: .3s;
+        }
+
+        .music-button:hover {
+            transform: scale(1.1);
+        }
+
+        .music-button.playing {
+            animation: musicPulse 1.5s infinite;
+        }
+
+        @keyframes musicPulse {
+
+            0%, 100% {
+                box-shadow:
+                    0 0 0 0 rgba(217, 75, 136, .2);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 0 10px rgba(217, 75, 136, .05);
+            }
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            text-align: center;
+
+            padding:
+                80px
+                20px
+                40px;
+        }
+
+
+        /* TITLE */
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+
+            font-size:
+                clamp(3rem, 9vw, 6.5rem);
+
+            font-weight: 700;
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+
+            color: #d94b88;
+
+            margin-bottom: 35px;
+
+            text-shadow:
+                0 5px 20px rgba(217, 75, 136, .15);
+
+            animation: titleAppear 1.2s ease;
+        }
+
+        .hero h1 span {
+            display: inline-block;
+
+            font-family: sans-serif;
+
+            font-size: .75em;
+
+            margin-left: 8px;
+
+            animation: heartBeat 1.6s infinite;
+        }
+
+        @keyframes titleAppear {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(30px)
+                    scale(.95);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        @keyframes heartBeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+
+        /* =========================================
+           HERO MESSAGE
+        ========================================= */
+
+        .hero-message {
+            width: min(760px, 100%);
+
+            padding: 30px 35px;
+
+            border-radius: 25px;
+
+            background:
+                rgba(255, 255, 255, .38);
+
+            border:
+                1px solid rgba(255, 255, 255, .6);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 15px 40px rgba(70, 60, 100, .08);
+
+            animation:
+                messageAppear 1.3s ease .2s both;
+        }
+
+        @keyframes messageAppear {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        .hero-message p {
+            font-size:
+                clamp(1rem, 2vw, 1.15rem);
+
+            line-height: 2;
+
+            font-weight: 500;
+
+            color: #454555;
+        }
+
+
+        /* =========================================
+           SCROLL
+        ========================================= */
+
+        .scroll {
+            margin-top: 45px;
+
+            color: #77748a;
+
+            font-size: 1rem;
+
+            font-weight: 600;
+
+            animation:
+                bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+
+
+        /* =========================================
+           GALLERY SECTION
+        ========================================= */
+
+        .gallery-section {
+            padding:
+                100px
+                20px
+                140px;
+        }
+
+        .section-title {
+            text-align: center;
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size:
+                clamp(2.2rem, 6vw, 3.5rem);
+
+            color: #d94b88;
+
+            margin-bottom: 60px;
+
+            text-shadow:
+                0 4px 15px rgba(217, 75, 136, .12);
+        }
+
+        .section-subtitle {
+            text-align: center;
+
+            color: #77748a;
+
+            margin-top: -40px;
+
+            margin-bottom: 50px;
+
+            font-size: .95rem;
+        }
+
+
+        /* =========================================
+           GALLERY
+        ========================================= */
+
+        .gallery {
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 45px;
+        }
+
+
+        /* =========================================
+           POLAROID
+        ========================================= */
+
+        .polaroid {
+            width: 270px;
+
+            padding:
+                15px
+                15px
+                55px;
+
+            background: #fffdf8;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, .15);
+
+            opacity: 0;
+
+            transform:
+                translateY(80px)
+                rotate(0deg);
+
+            transition:
+                opacity .8s ease,
+                transform .8s ease;
+        }
+
+        .polaroid.show {
+            opacity: 1;
+        }
+
+        .polaroid.rotate-left.show {
+            transform:
+                translateY(0)
+                rotate(-5deg);
+        }
+
+        .polaroid.rotate-right.show {
+            transform:
+                translateY(0)
+                rotate(5deg);
+        }
+
+        .polaroid:hover {
+            transform:
+                translateY(-10px)
+                rotate(0deg)
+                scale(1.04) !important;
+
+            box-shadow:
+                0 25px 45px rgba(0, 0, 0, .18);
+        }
+
+        .polaroid img {
+            display: block;
+
+            width: 100%;
+
+            height: 280px;
+
+            object-fit: cover;
+
+            border-radius: 2px;
+        }
+
+        .polaroid-caption {
+            margin-top: 17px;
+
+            text-align: center;
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size: 1rem;
+
+            color: #555;
+        }
+
+
+        /* =========================================
+           QUESTION
+        ========================================= */
+
+        .question-section {
+            min-height: 100vh;
+
+            padding:
+                100px
+                20px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+        .question {
+            max-width: 900px;
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            font-size:
+                clamp(2.3rem, 7vw, 4.5rem);
+
+            line-height: 1.2;
+
+            color: #d94b88;
+
+            margin-bottom: 50px;
+
+            text-shadow:
+                0 5px 20px rgba(217, 75, 136, .12);
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .buttons {
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            border: none;
+
+            text-decoration: none;
+
+            padding:
+                16px
+                45px;
+
+            border-radius: 999px;
+
+            font-size: 1rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, .12);
+        }
+
+        .btn:hover {
+            transform:
+                translateY(-4px)
+                scale(1.04);
+        }
+
+        .yes {
+            background: #78afe8;
+
+            color: white;
+        }
+
+        .no {
+            background: #f3cf68;
+
+            color: #4d4635;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            text-align: center;
+
+            padding:
+                45px
+                20px;
+
+            color: #888;
+
+            font-size: .9rem;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .music-button {
+                top: 15px;
+                right: 15px;
+
+                width: 44px;
+                height: 44px;
+            }
+
+            .hero {
+                padding:
+                    70px
+                    18px
+                    40px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+
+                margin-bottom: 25px;
+            }
+
+            .hero-message {
+                padding:
+                    23px
+                    20px;
+
+                border-radius: 20px;
+            }
+
+            .hero-message p {
+                font-size: .98rem;
+
+                line-height: 1.85;
+            }
+
+            .gallery-section {
+                padding:
+                    80px
+                    15px
+                    100px;
+            }
+
+            .gallery {
+                gap: 35px;
+            }
+
+            .polaroid {
+                width: min(280px, 90vw);
+            }
+
+            .polaroid img {
+                height: 280px;
+            }
+
+            .question-section {
+                padding:
+                    80px
+                    18px;
+            }
+
+            .question {
+                margin-bottom: 40px;
+            }
+
+            .btn {
+                padding:
+                    14px
+                    35px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         BACKGROUND HEARTS
+    ========================================== -->
+
+    <div id="hearts"></div>
+
+
+    <!-- =========================================
+         MUSIC
+    ========================================== -->
+
+    <audio id="music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <button
+        class="music-button"
+        id="musicButton"
+        aria-label="Play music">
+
+        🎵
+
+    </button>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="hero">
+
+        <h1>
+            Happy Birthday
+            <span>❤️</span>
+        </h1>
+
+
+        <div class="hero-message">
+
+            <p>
+                Happy Birthday yang ke 18 sayang ak, cintaku,
+                fav person ak. Semoga di umur 18 ini penuh dengan
+                kebahagiaan dan semuanyalah yang baik baik.
+                <br><br>
+
+                Aku minta maaf kalo aku sering salah,
+                tapi setiap kali aku salah, pasti aku juga pgn
+                buat improve. Pengen buat egk pernah salah
+                di mata km (perfect).
+                <br><br>
+
+                Trims yh atas dedikasinya krn udh mw sm ak lg.
+                Trims bnyk.
+                <br><br>
+
+                Harusnya aku ngasi ini kemaren,
+                tapi krn pas pasan sama hari libur,
+                yh sekarang ajah.
+                <br><br>
+
+                Dah i love u. ❤️
+            </p>
+
+        </div>
+
+
+        <div class="scroll">
+            ↓ Scroll Down ↓
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         GALLERY
+    ========================================== -->
+
+    <section class="gallery-section">
+
+        <h2 class="section-title">
+            Our Memories 📸
+        </h2>
+
+        <p class="section-subtitle">
+            Some little moments that mean a lot to me.
+        </p>
+
+
+        <div class="gallery">
+
+
+            <div class="polaroid rotate-left">
+
+                <img
+                    src="polaroid1.jpeg"
+                    alt="Our memory 1"
+                >
+
+                <p class="polaroid-caption">
+                    Gue dan Elo
+                </p>
+
+            </div>
+
+
+            <div class="polaroid rotate-right">
+
+                <img
+                    src="polaroid2.jpeg"
+                    alt="Our memory 2"
+                >
+
+                <p class="polaroid-caption">
+                    Gue Dan Elo #2
+                </p>
+
+            </div>
+
+
+            <div class="polaroid rotate-left">
+
+                <img
+                    src="polaroid3.jpeg"
+                    alt="Our memory 3"
+                >
+
+                <p class="polaroid-caption">
+                    Gue Elo jaman bocah
+                </p>
+
+            </div>
+
+            <div class="polaroid rotate-left">
+
+                <img
+                    src="polaroid4.jpeg"
+                    alt="Our memory 1"
+                >
+
+                <p class="polaroid-caption">
+                    Lutcu bgt jirs
+                </p>
+
+            </div>
+
+
+            <div class="polaroid rotate-right">
+
+                <img
+                    src="polaroid5.jpeg"
+                    alt="Our memory 2"
+                >
+
+                <p class="polaroid-caption">
+                    Y
+                </p>
+
+            </div>
+
+
+            <div class="polaroid rotate-left">
+
+                <img
+                    src="polaroid6.jpeg"
+                    alt="Our memory 3"
+                >
+
+                <p class="polaroid-caption">
+                    Cewenya gue
+                </p>
+
+            </div>
+
+            <div class="polaroid rotate-left">
+
+                <img
+                    src="polaroid7.jpeg"
+                    alt="Our memory 3"
+                >
+
+                <p class="polaroid-caption">
+                    Wifey
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         QUESTION
+    ========================================== -->
+
+    <section class="question-section">
+
+        <h2 class="question">
+            Do You Want To Be
+            My Girlfriend? ❤️
+        </h2>
+
+
+        <div class="buttons">
+
+
+            <!-- GANTI LINK YES DI SINI -->
+
+            <a
+                href="https://example.com"
+                class="btn yes"
+                id="yesBtn">
+
+                YES ❤️
+
+            </a>
+
+
+            <!-- GANTI LINK NO DI SINI -->
+
+            <a
+                href="https://example.com"
+                class="btn no"
+                id="noBtn">
+
+                NO 😢
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        Made with ❤️ for you
+
+    </footer>
+
+
+
+    <script>
+
+        /* =========================================
+           MUSIC
+        ========================================== */
+
+        const music =
+            document.getElementById("music");
+
+        const musicButton =
+            document.getElementById("musicButton");
+
+
+        let musicPlaying = false;
+
+
+        function playMusic() {
+
+            music.play()
+                .then(() => {
+
+                    musicPlaying = true;
+
+                    musicButton.textContent = "🎶";
+
+                    musicButton.classList.add("playing");
+
+                })
+                .catch(() => {
+
+                    console.log(
+                        "Browser belum mengizinkan audio."
+                    );
+
+                });
+
+        }
+
+
+        function pauseMusic() {
+
+            music.pause();
+
+            musicPlaying = false;
+
+            musicButton.textContent = "🎵";
+
+            musicButton.classList.remove("playing");
+
+        }
+
+
+        musicButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                if (musicPlaying) {
+
+                    pauseMusic();
+
+                } else {
+
+                    playMusic();
+
+                }
+
+            }
+        );
+
+
+        /*
+            Browser biasanya memblokir autoplay.
+            Karena itu kita coba mulai musik ketika
+            user pertama kali berinteraksi dengan halaman.
+        */
+
+        document.addEventListener(
+            "click",
+            function () {
+
+                if (!musicPlaying) {
+                    playMusic();
+                }
+
+            },
+            {
+                once: true
+            }
+        );
+
+
+        /* =========================================
+           FLOATING HEARTS
+        ========================================== */
+
+        const heartsContainer =
+            document.getElementById("hearts");
+
+
+        const heartColors = [
+            "#ed75ad",
+            "#f0c95a",
+            "#8d83e8",
+            "#ff9ac5"
+        ];
+
+
+        function createHeart() {
+
+            const heart =
+                document.createElement("div");
+
+
+            heart.classList.add("heart");
+
+            heart.innerHTML = "❤";
+
+
+            heart.style.left =
+                Math.random() *
+                window.innerWidth +
+                "px";
+
+
+            heart.style.fontSize =
+                12 +
+                Math.random() * 22 +
+                "px";
+
+
+            heart.style.animationDuration =
+                10 +
+                Math.random() * 14 +
+                "s";
+
+
+            heart.style.color =
+                heartColors[
+                    Math.floor(
+                        Math.random() *
+                        heartColors.length
+                    )
+                ];
+
+
+            heartsContainer.appendChild(heart);
+
+
+            setTimeout(() => {
+
+                heart.remove();
+
+            }, 25000);
+
+        }
+
+
+        setInterval(
+            createHeart,
+            450
+        );
+
+
+        /* =========================================
+           POLAROID ANIMATION
+        ========================================== */
+
+        const photos =
+            document.querySelectorAll(".polaroid");
+
+
+        const observer =
+            new IntersectionObserver(
+                (entries) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target
+                                    .classList
+                                    .add("show");
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: .2
+                }
+            );
+
+
+        photos.forEach(
+            (photo) => {
+
+                observer.observe(photo);
+
+            }
+        );
+
+
+        /* =========================================
+           YES BUTTON + CONFETTI
+        ========================================== */
+
+        const yesBtn =
+            document.getElementById("yesBtn");
+
+
+        yesBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                /*
+                    CONFETTI
+                */
+
+                confetti({
+
+                    particleCount: 150,
+
+                    spread: 80,
+
+                    startVelocity: 35,
+
+                    origin: {
+                        x: .5,
+                        y: .6
+                    }
+
+                });
+
+
+                /*
+                    CONFETTI DARI KIRI
+                */
+
+                setTimeout(() => {
+
+                    confetti({
+
+                        particleCount: 80,
+
+                        angle: 60,
+
+                        spread: 60,
+
+                        origin: {
+                            x: 0,
+                            y: .7
+                        }
+
+                    });
+
+                }, 200);
+
+
+                /*
+                    CONFETTI DARI KANAN
+                */
+
+                setTimeout(() => {
+
+                    confetti({
+
+                        particleCount: 80,
+
+                        angle: 120,
+
+                        spread: 60,
+
+                        origin: {
+                            x: 1,
+                            y: .7
+                        }
+
+                    });
+
+                }, 400);
+
+
+                /*
+                    PINDAH KE LINK
+                */
+
+                const target =
+                    this.href;
+
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        target;
+
+                }, 2500);
+
+            }
+        );
+
+
+        /* =========================================
+           RUNAWAY NO BUTTON
+        ========================================== */
+
+        const noBtn =
+            document.getElementById("noBtn");
+
+
+        function moveNoButton() {
+
+            const buttonWidth =
+                noBtn.offsetWidth || 120;
+
+            const buttonHeight =
+                noBtn.offsetHeight || 50;
+
+
+            const maxX =
+                window.innerWidth -
+                buttonWidth -
+                20;
+
+
+            const maxY =
+                window.innerHeight -
+                buttonHeight -
+                20;
+
+
+            const x =
+                Math.max(
+                    10,
+                    Math.random() * maxX
+                );
+
+
+            const y =
+                Math.max(
+                    10,
+                    Math.random() * maxY
+                );
+
+
+            noBtn.style.position =
+                "fixed";
+
+
+            noBtn.style.left =
+                x + "px";
+
+
+            noBtn.style.top =
+                y + "px";
+
+
+            noBtn.style.zIndex =
+                "999";
+
+        }
+
+
+        /*
+            DESKTOP
+        */
+
+        noBtn.addEventListener(
+            "mouseenter",
+            moveNoButton
+        );
+
+
+        /*
+            MOBILE
+        */
+
+        noBtn.addEventListener(
+            "touchstart",
+            function (event) {
+
+                event.preventDefault();
+
+                moveNoButton();
+
+            }
+        );
+
+
+        /*
+            Kalau user berhasil mengejar
+            tombol NO dengan klik
+        */
+
+        noBtn.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                moveNoButton();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
